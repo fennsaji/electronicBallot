@@ -1,5 +1,4 @@
 pragma solidity ^0.4.17;
-pragma experimental ABIEncoderV2;
 
 
 contract Ballot {
@@ -10,17 +9,17 @@ contract Ballot {
     
     
     struct Proposal {
-        string name;   
+        bytes32 name;   
         uint voteCount; 
     }
     
 
     address public chairperson;
-    mapping(address => Voter) public voters;
+    mapping(bytes32 => Voter) public voters;
     
     Proposal[] public proposals;
 
-    constructor(string[] proposalNames) public {
+    constructor(bytes32[] proposalNames) public {
         chairperson = msg.sender;
 
         for (uint i = 0; i < proposalNames.length; i++) {
@@ -32,8 +31,8 @@ contract Ballot {
     }
     
     
-    function vote(uint proposal) public {
-        Voter storage sender = voters[msg.sender];
+    function vote(uint proposal, bytes32 username) public {
+        Voter storage sender = voters[username];
         require(!sender.voted, "Already voted.");
         sender.voted = true;
         sender.vote = proposal;
@@ -56,7 +55,7 @@ contract Ballot {
 
 
     function winnerName() public view
-            returns (string winnerName_)
+            returns (bytes32 winnerName_)
     {
         winnerName_ = proposals[winningProposal()].name;
     }
