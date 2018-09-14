@@ -4,8 +4,8 @@ const compiledFactory = require('./build/Ballot.json');
 const secrets = require('./secrets');
 
 const provider = new HDWalletProvider(
-  'spice creek mule tennis wagon fly fruit spice anger absurd rival habit',
-  'https://rinkeby.infura.io/v3/6ff967fcf71142b78869969d5621f5d3'
+  secrets.accountMnemonic,
+  secrets.rinkebyNode
 );
 
 const web3 = new Web3(provider);

@@ -4,17 +4,17 @@ const BallotFactory =  require('./build/Ballot.json');
 const secrets = require('./secrets');
 
 const provider = new HDWalletProvider(
-  secrets.accountMnemonic,
-  secrets.rinkebyNode
+    secrets.accountMnemonic,
+    secrets.rinkebyNode
 );
 
 let web3;
 web3 = new Web3(provider);
 
+
 const instance = new web3.eth.Contract(
   JSON.parse(BallotFactory.interface),
-  '0xF826C12dE96E03b9511f02d0fF0dbAC391aDE03A'
+  secrets.deployedTo
 );
 
-
-exports.ballot =  instance;
+module.exports =  {instance, web3};
